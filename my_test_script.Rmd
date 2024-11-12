@@ -12,16 +12,17 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r test script}
 library(ggplot2)
 
-mean <- 0
-sd <- 1
+# Load the iris dataset
+data(iris)
 
-x_values <- seq(mean - 4*sd, mean + 4*sd, length = 100)
-y_values <- dnorm(x_values, mean = mean, sd = sd)
+# Scatter plot of Sepal.Length vs Sepal.Width
+plot(iris$Sepal.Length, iris$Sepal.Width, 
+     main = "Sepal Length vs Sepal Width",
+     xlab = "Sepal Length", ylab = "Sepal Width",
+     col = iris$Species, pch = 19)
+legend("topright", legend = levels(iris$Species), col = 1:3, pch = 19)
 
-data <- data.frame(x = x_values, y = y_values)
-
-ggplot(data, aes(x = x, y = y)) +
-  geom_line(color = "blue") +
-  labs(title = "Normal Distribution", x = "Value", y = "Density") +
-  theme_minimal()
+# Linear regression model
+model <- lm(Sepal.Width ~ Sepal.Length, data = iris)
+summary(model)
 ````
